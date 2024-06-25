@@ -1,0 +1,81 @@
+/*
+@license MIT
+Copyright 2024 prognostica GmbH
+See LICENSE file in the project root for full license information.
+*/
+
+
+div[data-chatbotui-type="ChatInput"] {
+  padding-left: 0.2rem;
+}
+
+button[data-chatbotui-type="ChatFilesButton"] {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+  margin-top: auto;
+  margin-left: 0.5rem;
+  border: none;
+  font-size: 0; /* hide button text */
+  padding: 0;
+  background-color: transparent;
+}
+button[data-chatbotui-type="ChatFilesButton"]::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--chatbotui-text-secondary);
+  /* Icon (CC0) from https://www.svgrepo.com/svg/77776/paperclip */
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIGZpbGw9IiNmZmYiIHZpZXdCb3g9IjAgMCA0ODUuNTYxIDQ4NS41NjEiPjxwYXRoIGQ9Ik0zNjkuNjk3IDM1OS4wNTNWMTE2LjY4MkMzNjkuNjk3IDQ3Ljk4MiAzMjYuNzY1IDAgMjY1LjI5NyAwaC00Ny40OTNDMTU2LjgzIDAgMTE1Ljg2MiA0Ni44OSAxMTUuODYyIDExNi42ODJ2MjY5LjhjMCA1My4zNDEgNDMuNDM5IDk5LjA3OCA5Ny4wMzEgOTkuMDI1LjY4NC4wMTQgMS4zNi4wNTMgMi4wNDcuMDUzIDUzLjgwOSAwIDk3LjcwMy00My4xMjUgOTkuMDc4LTk2LjYyVjIwMC42MTJjMC0zOS40ODctMjkuODUyLTcwLjQxOS02Ny45NjMtNzAuNDE5aC03LjM2OGMtMzcuMzQ1IDAtNjUuNTA4IDMwLjI3NC02NS41MDggNzAuNDE5djE1Ni4zOTRoMzYuODQ3VjIwMC42MTJjMC0xNi43MTEgOC44NjEtMzMuNTczIDI4LjY1OC0zMy41NzNoNy4zN2MxNy43MzggMCAzMS4xMTUgMTQuNDMzIDMxLjExNSAzMy41NzN2MTg1Ljg3YzAgMzQuMzEzLTI3LjkxNiA2Mi4yMy02Mi4yMyA2Mi4yMy0xOC40MDUgMC0zNC45NjItOC4wMzgtNDYuMzY3LTIwLjc4MS05LjE3Ny0xMS44NzctMTUuODYyLTMwLjM1NC0xNS44NjItNTkuMDUzdi0yNTIuMmMwLTU4Ljg2MyAzMy42MjctNzkuODMzIDY1LjA5Ny03OS44MzNoNDcuNDkyYzQ2LjY2MyAwIDY3LjU1MyA0MC4wOTYgNjcuNTUzIDc5LjgzM1YzNTkuMDVoMzYuODQ5di4wMDJ6Ii8+PC9zdmc+');
+  -webkit-mask-size: 70%;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFileArea"] {
+  position: absolute;
+  top: -1.8rem;
+  left: 2rem;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"] {
+  position: relative;
+  cursor: not-allowed;
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"][data-chatbotui-input-file-id] {
+  cursor: pointer;
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"]::before {
+  font-size: 2rem;
+  content: "📄";
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"]:hover::after {
+  font-size: 0.5rem;
+  content: attr(data-chatbotui-input-file-name) " ";
+  position:absolute;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+  background-color: rgba(220, 220, 220, 0.7);
+  top: -2rem;
+  left: 0;
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"][data-chatbotui-input-file-id]:hover::before {
+  content: "❌";
+  font-size: 2rem;
+}
+button[data-chatbotui-type="ChatFilesButton"] div[data-chatbotui-type="InputFile"]:not([data-chatbotui-input-file-id]) {
+  opacity: 0.7;
+  animation: chatbotui-file-input-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes chatbotui-file-input-ping {
+  75%, 100% {
+    transform: rotate(12deg);
+  }
+}
+
+div[data-chatbotui-type="ChatBar"][data-chatbotui-file-dropper-highlight="true"] {
+  border: 2px dashed #fff;
+}

@@ -1,0 +1,76 @@
+/*!
+@license MIT
+Copyright 2024 prognostica GmbH
+See LICENSE file in the project root for full license information.
+*/
+
+@import "basic.css";
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+}
+button {
+  cursor: pointer;
+}
+div#messages {
+  width:92.5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 7rem;
+}
+div#main {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  position: relative;
+  scrollbar-width: 18px;
+  background-color: var(--chatbotui-background-primary);
+}
+div#chatbar {
+  position: fixed;
+  width: calc(100% - 18px); /* accomodate for scoll bar */
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+  background-color: #fff;
+}
+div#chatbar::after {
+  content: attr(data-chatbotui-note);
+  display: block;
+  position: absolute;
+  bottom: 0;
+  font-size: 0.75rem;
+  line-height: 2rem;
+  color: #888;
+}
+
+@media (min-width: 640px) {
+}
+@media (min-width: 768px) {
+  div[data-chatbotui-type="ChatBar"] {
+    width: 43rem;
+  }
+  div#messages {
+    width: 43rem;
+  }
+}
+@media (min-width: 1024px) {
+  div[data-chatbotui-type="ChatBar"] {
+    width: 48rem;
+  }
+  div#messages {
+    width: 48rem;
+  }
+}
+@media (min-width: 1280px) {
+}

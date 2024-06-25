@@ -1,0 +1,22 @@
+:root {
+  --chatbotui-border-radius-small: 0.3rem;
+  --chatbotui-border-radius-medium: 1rem;
+  --chatbotui-border-radius-large: 1.5rem;
+
+  --chatbotui-text-primary: #164b7a;
+  --chatbotui-background-primary: none;
+
+  /* secondary: e.g. chatbar, user-message */
+  --chatbotui-text-secondary: #227cbc;
+  --chatbotui-background-secondary: #e8f3f8;
+  --chatbotui-background-secondary-accent: #a8e2f2;
+
+  /* dark variant, used in tool output */
+  --chatbotui-background-primary-dark: #5587ad;
+  --chatbotui-background-secondary-dark: #95b5d2;
+  --chatbotui-text-primary-dark: white; /* text on dark primary background */
+  --chatbotui-text-secondary-dark: white; /* text on dark secondary background */
+
+
+}
+

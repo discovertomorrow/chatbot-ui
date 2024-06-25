@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Example Bot</title>
+    <meta
+      name="description"
+      content="Example Bot: An interactive chatbot experience."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="/dist/chatbotui-with-files.min.css"
+      rel="stylesheet"
+    />
+    <script src="/static/markdown-it.min.js" defer></script>
+    <link href="/static/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="main">
+      <div id="messages"></div>
+    </div>
+    <div
+      id="chatbar"
+      data-chatbotui-note="Chatbot UI"
+      data-chatbotui-input-placeholder="Send a message to ChatbotUI"
+    ></div>
+    <script type="module" src="/static/bundle.esm.js" defer></script>
+  </body>
+</html>
+

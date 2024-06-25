@@ -1,0 +1,161 @@
+/*
+@license MIT
+Copyright 2024 prognostica GmbH
+See LICENSE file in the project root for full license information.
+*/
+
+div[data-chatbotui-message-role] {
+  clear: both;
+  margin-bottom: 1.5rem;
+  color: var(--chatbotui-text-primary);
+}
+div[data-chatbotui-message-role="user"] {
+  border-radius: var(--chatbotui-border-radius-medium);
+  background-color: var(--chatbotui-background-secondary);
+  color: var(--chatbotui-text-secondary);
+  display: inline-block;
+  float: right;
+  min-width: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  white-space: pre-wrap;
+}
+div[data-chatbotui-message-role="assistant"] {
+  padding-left: 3rem;
+  position: relative;
+}
+div[data-chatbotui-message-role="assistant"]::before {
+  position: absolute;
+  content: " ";
+  top: -0.5rem;
+  left: 0;
+  height: 1.9rem;
+  width: 1.9rem;
+  /*
+   * Background Image from: https://uxwing.com/chatbot-icon/
+   * License allows commercial use, does not require attribution
+   */
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjIuODggMTE5LjM1Ij48cGF0aCBkPSJNNTcuNDkgMjkuMnYtNS42N2ExNC40IDE0LjQgMCAwIDEtMi0uOTMgMTIuMTggMTIuMTggMCAwIDEtNS4wNS0xNS4xIDEyLjQgMTIuNCAwIDAgMSAyLjY0LTMuOTVBMTIuMiAxMi4yIDAgMCAxIDU3IC45MiAxMiAxMiAwIDAgMSA2MS42NiAwYTEyLjE0IDEyLjE0IDAgMCAxIDExLjIyIDcuNSAxMi4xNCAxMi4xNCAwIDAgMSAwIDkuMjcgMTIuMSAxMi4xIDAgMCAxLTIuNjQgMy45NGwtLjA2LjA2YTEyLjcgMTIuNyAwIDAgMS0yLjM2IDEuODMgMTEuMyAxMS4zIDAgMCAxLTIgLjkzdjUuNjdIOTQuM2ExNS40NyAxNS40NyAwIDAgMSAxNS40MiAxNS40M3YyLjI5SDExNWE3LjkzIDcuOTMgMCAwIDEgNy45IDcuOTFWNzMuMmE3LjkzIDcuOTMgMCAwIDEtNy45IDcuOTFoLTUuMjV2Mi4wN0ExNS40OCAxNS40OCAwIDAgMSA5NC4zIDk4LjYxSDU1LjIzbC0yMy40MiAyMC4xMWEyLjU4IDIuNTggMCAwIDEtMy42NS0uMjkgMi42MyAyLjYzIDAgMCAxLS42My0xLjg1bDEuMjUtMThoLS4yMWExNS40NSAxNS40NSAwIDAgMS0xNS40MS0xNS40di0yLjA3SDcuOTFBNy45MyA3LjkzIDAgMCAxIDAgNzMuMlY1NC44M2E3LjkzIDcuOTMgMCAwIDEgNy45LTcuOTFoNS4yNnYtMi4zQTE1LjQ1IDE1LjQ1IDAgMCAxIDI4LjU3IDI5LjJ6bTI1LjI1IDE4LjEyYTkuMzYgOS4zNiAwIDEgMS05LjM2IDkuMzYgOS4zNiA5LjM2IDAgMCAxIDkuMzYtOS4zNm0tNDIuNTggMGE5LjM2IDkuMzYgMCAxIDEtOS4zNiA5LjM2IDkuMzYgOS4zNiAwIDAgMSA5LjM2LTkuMzZtNi4zOCAzMS4zNmEyLjMgMi4zIDAgMCAxLS4zOC0uMzggMi4xOCAyLjE4IDAgMCAxLS41Mi0xLjM2IDIuMiAyLjIgMCAwIDEgLjQ2LTEuMzkgMi40IDIuNCAwIDAgMSAuMzktLjM5IDMuMjIgMy4yMiAwIDAgMSAzLjg4LS4wOEEyMi40IDIyLjQgMCAwIDAgNTYgNzguMzJhMTQuOSAxNC45IDAgMCAwIDUuNDcgMSAxNi4yIDE2LjIgMCAwIDAgNS41My0xLjFBMjUuNCAyNS40IDAgMCAwIDcyLjc1IDc1YTMuMjQgMy4yNCAwIDAgMSAzLjg5LjE4IDMgMyAwIDAgMSAuMzcuNDEgMi4yMiAyLjIyIDAgMCAxIC40MiAxLjQgMi4zMyAyLjMzIDAgMCAxLS41OCAxLjM1IDIuMyAyLjMgMCAwIDEtLjQzLjM4IDMwLjYgMzAuNiAwIDAgMS03LjMzIDQgMjIuMyAyMi4zIDAgMCAxLTcuNTMgMS40M0EyMS4yIDIxLjIgMCAwIDEgNTQgODIuODdhMjcuOCAyNy44IDAgMCAxLTcuNDEtNC4xNlpNOTQuMjkgMzQuNEgyOC41N2ExMC4yNiAxMC4yNiAwIDAgMC0xMC4yMiAxMC4yM3YzOC41NWExMC4yNiAxMC4yNiAwIDAgMCAxMC4yMiAxMC4yM2gzLjE3YTIuNjEgMi42MSAwIDAgMSAyLjQxIDIuNzdsLTEgMTQuNTggMTkuMy0xNi42MWEyLjU2IDIuNTYgMCAwIDEgMS44My0uNzVoNDBhMTAuMjYgMTAuMjYgMCAwIDAgMTAuMjItMTAuMjNWNDQuNjJBMTAuMjQgMTAuMjQgMCAwIDAgOTQuMjkgMzQuNCIvPjwvc3ZnPg==');
+  background-color: var(--chatbotui-text-primary);
+  -webkit-mask-size: 70%;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+div[data-chatbotui-message-item-type="tool"] {
+  padding: 0.5rem;
+  border-radius: var(--chatbotui-border-radius-small);
+  background-color: var(--chatbotui-background-primary-dark);
+  color: var(--chatbotui-text-primary-dark);
+  white-space: pre-wrap;
+  max-height: 1rem;
+  overflow-y: hidden;
+}
+div[data-chatbotui-message-item-type="tool"][data-chatbotui-selected="true"],
+div[data-chatbotui-message-item-type="tool"][data-chatbotui-message-item-active="true"] {
+  max-height: 25rem;
+  overflow-y: auto;
+}
+
+
+div[data-chatbotui-message-item-type="tool"][data-chatbotui-message-item-name]::before {
+  display:block;
+  margin:-0.5rem;
+  padding: 0.5rem;
+  border-radius: var(--chatbotui-border-radius-small) 0 0 0;
+  background-color: var(--chatbotui-background-secondary-dark);
+  color: var(--chatbotui-text-secondary-dark);
+  content: attr(data-chatbotui-message-item-name) " ";
+  font-size: 0.75rem;
+  line-height: 1rem;
+  user-select: none;
+}
+div[data-chatbotui-message-item-type="b64image"] {
+  display: none;
+}
+div[data-chatbotui-type="MessageItem"] {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+div[data-chatbotui-type="MessageItem"][data-chatbotui-message-item-active="true"] > :last-child::after {
+  content: " ";
+  display: inline-block;
+  margin-left: 0.45rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 0.5rem;
+  vertical-align: middle;
+  margin-bottom: 0.15rem;
+  background-color: currentColor;
+  opacity: 0.8;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation-delay: 0.5s;
+}
+@keyframes ping {
+  75%, 100% {
+    transform: scale(1.2);
+  }
+}
+
+div[data-chatbotui-type="ChatBar"] {
+  display: flex;
+  border-radius: var(--chatbotui-border-radius-large);
+  background-color: var(--chatbotui-background-secondary);
+  color: var(--chatbotui-text-secondary);
+  position: relative;
+  width: 90%;
+}
+div[data-chatbotui-type="ChatInput"] {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  padding-left: 1rem;
+  padding-right: 0.4rem;
+  flex-grow: 1;
+}
+div[data-chatbotui-type="ChatInput"]:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+div[data-chatbotui-type="ChatInput"]:empty::after {
+  content: attr(data-chatbotui-input-placeholder);
+  cursor: text;
+  color: var(--chatbotui-text-secondary);
+  opacity: 0.5;
+}
+button[data-chatbotui-type="ChatSendButton"] {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+  margin-top: auto;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: var(--chatbotui-background-secondary-accent);
+  font-size: 0;
+  position: relative;
+}
+button[data-chatbotui-type="ChatSendButton"]::after {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--chatbotui-text-secondary);
+  display: block;
+  content: "";
+  position: absolute; top: 0; left: 0;
+  /* Icon (Public Domain) from https://www.svgrepo.com/svg/499571/arrow-up */
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9ImN1cnJlbnRDb2xvciIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjI5MyA0LjI5M2ExIDEgMCAwIDEgMS40MTQgMGw2IDZhMSAxIDAgMCAxLTEuNDE0IDEuNDE0TDEzIDcuNDE0VjE5YTEgMSAwIDEgMS0yIDBWNy40MTRsLTQuMjkzIDQuMjkzYTEgMSAwIDAgMS0xLjQxNC0xLjQxNHoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPgo=');
+  -webkit-mask-size: 60%;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+button[data-chatbotui-type="ChatSendButton"]:disabled {
+  opacity: 0.5;
+}
+div[data-chatbotui-type="ChatBar"][data-chatbotui-running="true"] button[data-chatbotui-type="ChatSendButton"]::after {
+  /*
+   * Background Image from: https://uxwing.com/square-icon/
+   * License allows commercial use, does not require attribution
+   */
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxMjIuODgzIiBoZWlnaHQ9IjEyMi44ODIiPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEzLjAwMiAwaDk2Ljg3OGM3LjE1IDAgMTMuMDAyIDUuODUxIDEzLjAwMiAxMy4wMDJ2OTYuODc3YzAgNy4xNTEtNS44NTIgMTMuMDAyLTEzLjAwMiAxMy4wMDJIMTMuMDAyQzUuODUxIDEyMi44ODIgMCAxMTcuMDMxIDAgMTA5Ljg4VjEzLjAwMkMwIDUuODUxIDUuODUxIDAgMTMuMDAyIDAiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==');
+  -webkit-mask-size: 40%;
+}

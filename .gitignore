@@ -1,0 +1,4 @@
+node_modules/
+examples/fastapi/__pycache__
+examples/fastapi/static/markdown-it.min.js
+dist/*
