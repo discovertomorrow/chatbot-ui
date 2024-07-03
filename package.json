@@ -7,10 +7,14 @@
     "build-js": "rollup -c",
     "build-css": "concurrently npm:build-css:chatbotui npm:build-css:chatbotui-with-files",
     "build-css:chatbotui": "postcss styles/chatbotui.css -o dist/chatbotui.min.css",
-    "build-css:chatbotui-with-files": "postcss styles/chatbotui-with-files.css -o dist/chatbotui-with-files.min.css"
+    "build-css:chatbotui-with-files": "postcss styles/chatbotui-with-files.css -o dist/chatbotui-with-files.min.css",
+    "prepare": "npm run build"
   },
   "main": "dist/chatbotui-with-files.esm.min.js",
   "module": "dist/chatbotui-with-files.esm.min.js",
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "prognostica GmbH",
   "license": "MIT",
