@@ -1,0 +1,38 @@
+@import "../../../styles/chatbotui.css";
+div#main::before {
+  content: "";
+  display: block;
+  height: 2rem;
+}
+
+div#main form {
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 25rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+div#main > form > label {
+  display: block;
+  text-align: right;
+  margin: 1rem;
+}
+
+div#main > form > label > input {
+  border: 1px solid #888;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  max-width: 16rem;
+  width: 100%;
+}
+
+div#main > form > input {
+  margin: 1rem;
+  background-color: transparent;
+  border: 1px solid #888;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  padding: 1rem;
+}
