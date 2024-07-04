@@ -124,7 +124,8 @@ div[data-chatbotui-type="ChatInput"]:empty::after {
   opacity: 0.5;
 }
 button[data-chatbotui-type="ChatSendButton"] {
-  width: 2rem;
+  max-width: 2rem;
+  min-width: 2rem;
   height: 2rem;
   margin-bottom: 0.5rem;
   margin-top: auto;
