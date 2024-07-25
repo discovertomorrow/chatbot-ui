@@ -14,14 +14,11 @@ import markdownit from "markdown-it";
 
 const md = markdownit();
 
-const createChat = (apiKey, modelName, baseURL) => {
+const createChat = (apiKey, baseURL, modelName, systemPrompt) => {
   const model = new ChatOpenAI({ apiKey, modelName }, { baseURL });
 
   const prompt = ChatPromptTemplate.fromMessages([
-    [
-      "system",
-      "Model is a data scientist. Model only speaks german.",
-    ],
+    ...(systemPrompt ? [["system", systemPrompt]] : []),
     new MessagesPlaceholder("history"),
     ["human", "{input}"],
   ]);
@@ -94,7 +91,7 @@ const createChat = (apiKey, modelName, baseURL) => {
 
 const createForm = () => {
   const form = document.createElement("form");
-  const fields = ["apiKey", "modelName", "baseURL"];
+  const fields = ["apiKey", "baseURL", "modelName", "systemPrompt"];
   fields.forEach((field) => {
     const label = document.createElement("label");
     const inputType = field === "apiKey" ? "password" : "text";
@@ -110,8 +107,9 @@ const createForm = () => {
     const formData = new FormData(form);
     createChat(
       formData.get("apiKey"),
-      formData.get("modelName"),
       formData.get("baseURL"),
+      formData.get("modelName"),
+      formData.get("systemPrompt"),
     );
     form.remove();
   });
