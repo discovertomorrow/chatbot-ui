@@ -36,3 +36,16 @@ div#main > form > input {
   cursor: pointer;
   padding: 1rem;
 }
+
+div[data-chatbotui-type="MessageItem"] pre {
+  white-space: pre-wrap;
+}
+
+div[data-chatbotui-type="MessageItem"] pre:has(> code:first-child) {
+  background-color: black;
+  color: white;
+  padding: .5rem;
+  margin-right: -.5rem;
+  margin-left: -.5rem;
+  border-radius: .5rem;
+}
