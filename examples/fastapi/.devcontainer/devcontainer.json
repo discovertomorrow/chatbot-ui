@@ -1,10 +1,14 @@
 {
 	"name": "fastapi-container",
-  "appPort": ["8000:8000"],
+    "appPort": ["8000:8000"],
 	"build": {
 		"context": "..",
 		"dockerfile": "./Dockerfile"
 	},
+	"mounts": [
+        "source=${localWorkspaceFolder}/../../dist,target=/workspaces/chatbot-ui/examples/fastapi/dist,type=bind"
+    ],
+	"postCreateCommand": "wget https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js -P /workspaces/chatbot-ui/examples/fastapi/static/.",
 	"customizations": {
 		"vscode": {
 			"extensions": [
