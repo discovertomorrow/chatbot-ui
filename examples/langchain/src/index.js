@@ -95,7 +95,19 @@ const createForm = () => {
   fields.forEach((field) => {
     const label = document.createElement("label");
     const inputType = field === "apiKey" ? "password" : "text";
-    label.innerHTML = `${field}: <input type="${inputType}" name="${field}" required>`;
+    const input = document.createElement("input");
+    input.type = inputType;
+    input.name = field;
+    input.required = true;
+    const storedValue =
+      field === "apiKey"
+        ? sessionStorage.getItem(field)
+        : localStorage.getItem(field);
+    if (storedValue) {
+      input.value = storedValue;
+    }
+    label.innerHTML = `${field}: `;
+    label.appendChild(input);
     form.appendChild(label);
   });
   const submit = document.createElement("input");
@@ -104,13 +116,19 @@ const createForm = () => {
   form.appendChild(submit);
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const formData = new FormData(form);
-    createChat(
-      formData.get("apiKey"),
-      formData.get("baseURL"),
-      formData.get("modelName"),
-      formData.get("systemPrompt"),
-    );
+    const apiKey = formData.get("apiKey");
+    const baseURL = formData.get("baseURL");
+    const modelName = formData.get("modelName");
+    const systemPrompt = formData.get("systemPrompt");
+
+    sessionStorage.setItem("apiKey", apiKey);
+    localStorage.setItem("baseURL", baseURL);
+    localStorage.setItem("modelName", modelName);
+    localStorage.setItem("systemPrompt", systemPrompt);
+
+    createChat(apiKey, baseURL, modelName, systemPrompt);
     form.remove();
   });
   document.getElementById("main").appendChild(form);
