@@ -1,7 +1,7 @@
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from fastapi import FastAPI, File, UploadFile, Form
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, RedirectResponse
 import json
 import time
 from uuid import uuid4
@@ -11,6 +11,11 @@ app = FastAPI()
 
 app.mount("/dist", StaticFiles(directory="../../dist"), name="dist")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/")
+async def root():
+    return RedirectResponse(url='/static/index.html') # Redirect to index.html
 
 
 class Data(BaseModel):
