@@ -71,7 +71,7 @@ export class ResponseProcessor {
     chatMessage.getMessageItems().forEach((item) => {
       item.setActive(false);
     });
-    this.scrollDown();
+    setTimeout(() => this.scrollDown(), 500);
   }
 
   /**
@@ -94,7 +94,7 @@ export class ResponseProcessor {
         case MessageItemResponseChunk: {
           const name =
             data.type === MessageItemResponseType.TOOL
-              ? data.name ?? "N/A"
+              ? (data.name ?? "N/A")
               : undefined;
           let item = chatMessage.getMessageItem(data.messageItemID);
           if (!item) {
