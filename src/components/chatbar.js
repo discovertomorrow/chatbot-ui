@@ -50,6 +50,8 @@ export class ChatBar extends BaseComponent {
    * @param {Object} input - The input data.
    */
   async send(input) {
+    const content = input["chat-input"];
+    this.processor.processUserMessage(content);
     let generator;
     try {
       generator = await this.createGenerator(input);
@@ -58,8 +60,6 @@ export class ChatBar extends BaseComponent {
       this.notifyError("Failed to send message.");
       return;
     }
-    const content = input["chat-input"];
-    this.processor.processUserMessage(content);
     try {
       await this.processor.process(generator);
     } catch (error) {
