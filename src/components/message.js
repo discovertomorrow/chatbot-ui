@@ -58,6 +58,36 @@ export class Message extends BaseComponent {
   }
 
   /**
+   * Deletes a MessageItem from the Message by its ID.
+   * @param {number} id - The ID of the MessageItem to delete.
+   * @returns {boolean} True if the item was found and deleted, false otherwise.
+   */
+  deleteMessageItem(id) {
+    const item = this.element.querySelector(
+      `[data-chatbotui-message-item-id="${id}"]`,
+    );
+    if (item) {
+      this.element.removeChild(item);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Hides a MessageItem from the Message by its ID.
+   * @param {number} id - The ID of the MessageItem to hidden.
+   * @returns {boolean} True if the item was found and hidden, false otherwise.
+   */
+  hideMessageItem(id, hidden = true) {
+    const item = this.getMessageItem(id)
+    if (item) {
+      item.setHidden(hidden);
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Get all message items.
    * @returns {MessageItem[]} An array of MessageItem instances.
    */
@@ -166,6 +196,14 @@ export class MessageItem extends BaseComponent {
       this.getElement().dataset.chatbotuiMessageItemActive = active;
     } else {
       delete this.getElement().dataset.chatbotuiMessageItemActive;
+    }
+  }
+
+  setHidden(hidden = true) {
+    if (hidden) {
+      this.getElement().dataset.chatbotuiMessageItemHidden = hidden;
+    } else {
+      delete this.getElement().dataset.chatbotuiMessageItemHidden;
     }
   }
 

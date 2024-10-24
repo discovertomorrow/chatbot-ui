@@ -5,39 +5,21 @@
  */
 
 /**
- * Check if an element is visible in the viewport.
- * @param {HTMLElement} e - The element to check visibility for.
- * @returns {boolean} True if the element is visible, otherwise false.
- */
-const visible = (e) =>
-  e.getBoundingClientRect().bottom <=
-  (window.innerHeight || document.documentElement.clientHeight) + 2;
-
-/**
  * Throttle a function, ensuring it is only called once per specified limit.
  * @param {function} func - The function to throttle.
  * @param {number} limit - The time limit in milliseconds.
  * @returns {function} A throttled version of the input function.
  */
 const throttle = (func, limit) => {
-  let lastFunc;
-  let lastRan;
+  let blocked = false;
 
   return function (...args) {
-    if (!lastRan) {
+    if (!blocked) {
+      blocked = true;
       func(...args);
-      lastRan = Date.now();
-    } else {
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(
-        () => {
-          if (Date.now() - lastRan >= limit) {
-            func(...args);
-            lastRan = Date.now();
-          }
-        },
-        limit - (Date.now() - lastRan),
-      );
+      setTimeout(() => {
+        blocked = false;
+      }, limit);
     }
   };
 };
@@ -48,14 +30,12 @@ const throttle = (func, limit) => {
  * @param {HTMLElement} scrollElement - The element to scroll.
  * @returns {function} A throttled function that scrolls down smoothly if the check element is not visible.
  */
-export const createSmoothScrollDownFunction = (checkElement, scrollElement) => {
+export const createSmoothScrollDownFunction = (scrollElement) => {
   return throttle(() => {
-    if (!visible(checkElement)) {
-      scrollElement.scrollTo({
-        top: scrollElement.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, 250);
+    scrollElement.scrollTo({
+      top: scrollElement.scrollHeight,
+      behavior: "smooth",
+    });
+  }, 500);
 };
 

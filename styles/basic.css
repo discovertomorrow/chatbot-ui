@@ -78,7 +78,8 @@ div[data-chatbotui-type="MessageItem"] {
   margin-top: 0.8rem;
   margin-bottom: 0.8rem;
 }
-div[data-chatbotui-type="MessageItem"][data-chatbotui-message-item-active="true"] > :last-child::after {
+div[data-chatbotui-type="MessageItem"][data-chatbotui-message-item-active="true"] > :last-child::after,
+div[data-chatbotui-message-role="assistant"]:not(:has(div[data-chatbotui-type="MessageItem"]))::after {
   content: " ";
   display: inline-block;
   margin-left: 0.45rem;

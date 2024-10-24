@@ -13,6 +13,10 @@ import {
   MessageItemResponseChunk,
   DocumentResponse,
 } from "./models/messageitemtypes";
+import {
+  DeleteMessageItemSignal,
+  HideMessageItemSignal,
+} from "./models/signaltypes";
 import { addSerializer, baseSerializer } from "./utils/serialize";
 import { ResponseProcessor } from "./components/responseprocessor";
 
@@ -147,6 +151,10 @@ class ChatbotUI {
     this.chatBar.getChatInput().getElement().focus();
   }
 
+  sendInput() {
+    this.chatBar.sendInput()
+  }
+
   /**
    * Copies specific data attributes starting with 'data-chatbotui' from chatbarContainer
    * to components.
@@ -168,5 +176,7 @@ export {
   MessageItemResponse,
   MessageItemResponseChunk,
   MessageItemResponseType,
+  DeleteMessageItemSignal,
+  HideMessageItemSignal,
 };
 
