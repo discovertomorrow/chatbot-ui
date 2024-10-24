@@ -20,7 +20,7 @@ export class ChatBar extends BaseComponent {
   constructor(notifyError, createGenerator, processor) {
     super("div");
     this.element.dataset.chatbotuiType = "ChatBar";
-    const sendInput = async () => {
+    this.sendInput = async () => {
       if (this.isEnabled() && !this.isRunning()) {
         const content = this.getChatInput().element.innerText.trim();
         if (content !== "") {
@@ -33,8 +33,8 @@ export class ChatBar extends BaseComponent {
         }
       }
     };
-    this.chatInput = new ChatInput(sendInput);
-    this.chatSendButton = new ChatSendButton(sendInput);
+    this.chatInput = new ChatInput(this.sendInput);
+    this.chatSendButton = new ChatSendButton(this.sendInput);
     this.element.appendChild(this.chatInput.getElement());
     this.element.appendChild(this.chatSendButton.getElement());
     this.notifyError = notifyError;

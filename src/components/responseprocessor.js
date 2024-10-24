@@ -13,6 +13,10 @@ import {
   MessageItemResponse,
   DocumentResponse,
 } from "../models/messageitemtypes";
+import {
+  DeleteMessageItemSignal,
+  HideMessageItemSignal,
+} from "../models/signaltypes";
 
 export class ResponseProcessor {
   /**
@@ -120,6 +124,12 @@ export class ResponseProcessor {
           );
           this.documentCallback(doc);
           break;
+        }
+        case DeleteMessageItemSignal: {
+          chatMessage.deleteMessageItem(data.messageItemID);
+        }
+        case HideMessageItemSignal: {
+          chatMessage.hideMessageItem(data.messageItemID);
         }
         default:
           console.warn("Unknown data type received:", data);
