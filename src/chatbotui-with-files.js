@@ -41,8 +41,10 @@ class ChatbotUIWithFiles extends ChatbotUI {
    */
   _buildChatbar() {
     super._buildChatbar();
-    this.chatFilesButton = new ChatFilesButton(this.attachFileToInput, (msg) =>
-      this.notifyError(msg),
+    this.chatFilesButton = new ChatFilesButton(
+      this.attachFileToInput,
+      this.detachFileFromInput,
+      (msg) => this.notifyError(msg),
     );
     setupFileDropZone(this.chatBar.getElement(), (file) => {
       this.chatFilesButton.attachFile(file);
@@ -65,4 +67,3 @@ export {
   MessageItemResponseChunk,
   MessageItemResponseType,
 };
-

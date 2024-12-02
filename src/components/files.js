@@ -17,7 +17,7 @@ export class InputFile extends BaseComponent {
    * @param {string} name - The name of the file.
    * @param {HTMLElement} [element] - The existing HTML element representing the input file.
    */
-  constructor(name, element) {
+  constructor(name, remove, element) {
     super("div", undefined, element);
     if (element) return;
     this.element.dataset.chatbotuiType = "InputFile";
@@ -25,6 +25,7 @@ export class InputFile extends BaseComponent {
     this.element.onclick = (e) => {
       e.stopPropagation();
       if (this.element.dataset.chatbotuiInputFileId) {
+        remove(this.element.dataset.chatbotuiInputFileId);
         this.element.remove();
       }
     };
@@ -79,14 +80,16 @@ export class ChatFilesButton extends BaseComponent {
   /**
    * Create a ChatFilesButton.
    * @param {function(File): Promise<string>} attachFileToInput - The function to attach a file to the input, which takes a File object as a parameter and returns a Promise that resolves with the fileID when the file is successfully attached, and throws an error on failure.
+   * @param {function(File): Promise<string>} detachFileFromInput - The function to detach a file from the input
    * @param {function(string): void} notifyError - The function to notify about an error.
    */
-  constructor(attachFileToInput, notifyError) {
+  constructor(attachFileToInput, detachFileFromInput, notifyError) {
     super("button");
     this.notifyError = notifyError;
     this.element.innerHTML = "upload";
     this.element.dataset.chatbotuiType = "ChatFilesButton";
     this.attachFileToInput = attachFileToInput;
+    this.detachFileFromInput = detachFileFromInput;
     this.inputFileArea = new InputFileArea();
     this.element.appendChild(this.inputFileArea.element);
     this.element.onclick = () => {
@@ -103,7 +106,7 @@ export class ChatFilesButton extends BaseComponent {
    * @returns {Promise<void>} A promise that resolves when the file is attached.
    */
   async attachFile(file) {
-    const inputFile = new InputFile(file.name);
+    const inputFile = new InputFile(file.name, this.detachFileFromInput);
     this.inputFileArea.element.appendChild(inputFile.element);
     try {
       const fileID = await this.attachFileToInput(file);
@@ -122,4 +125,3 @@ export class ChatFilesButton extends BaseComponent {
     return this.element;
   }
 }
-
